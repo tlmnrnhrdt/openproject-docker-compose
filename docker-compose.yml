@@ -1,6 +1,8 @@
 networks:
   frontend:
   backend:
+  traefik:
+    external: true
 
 volumes:
   pgdata:
@@ -53,12 +55,19 @@ services:
         APP_HOST: web
     image: openproject/proxy
     <<: *restart_policy
-    ports:
-      - "${PORT:-8080}:80"
+    # ports: # Removed - Traefik will handle external ports
+    #   - "${PORT:-8080}:80"
     depends_on:
       - web
     networks:
       - frontend
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openproject.rule=Host(`openproject.new-amsterdam.reinh4rdt.com`)"
+      - "traefik.http.routers.openproject.entrypoints=websecure"
+      - "traefik.http.routers.openproject.tls.certresolver=letsencrypt"
+      - "traefik.http.services.openproject.loadbalancer.server.port=80"
 
   web:
     <<: *app
