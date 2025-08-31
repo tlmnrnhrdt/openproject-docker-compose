@@ -63,7 +63,7 @@ services:
       - frontend
       - traefik
     labels:
-      - "traefik.enable=${TRAEFIK_ENABLE:-false}"  # Controlled by environment variable
+      - "traefik.enable=true"  # Always enabled - will get higher priority when running
       - "traefik.http.routers.openproject.rule=Host(`openproject.new-amsterdam.reinh4rdt.com`)"
       - "traefik.http.routers.openproject.entrypoints=websecure"
       - "traefik.http.routers.openproject.tls.certresolver=letsencrypt"
