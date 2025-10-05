@@ -26,6 +26,12 @@ x-op-app: &app
     RAILS_MAX_THREADS: ${RAILS_MAX_THREADS:-16}
     # set to true to enable the email receiving feature. See ./docker/cron for more options
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
+    # SMTP configuration for sending emails
+    EMAIL_DELIVERY_METHOD: "smtp"
+    SMTP_ADDRESS: "172.20.0.1"
+    SMTP_PORT: "25"
+    SMTP_DOMAIN: "new-amsterdam.reinh4rdt.com"
+    SMTP_AUTHENTICATION: "none"
   volumes:
     - "${OPDATA:-opdata}:/var/openproject/assets"
 
