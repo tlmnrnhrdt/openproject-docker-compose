@@ -34,6 +34,8 @@ x-op-app: &app
     SMTP_AUTHENTICATION: "none"
   volumes:
     - "${OPDATA:-opdata}:/var/openproject/assets"
+    - "./timesheet-standard.yml:/app/app/models/work_package/pdf_export/export/timesheet/standard.yml"
+    - "./timesheet_generator.rb:/app/modules/reporting/app/workers/cost_query/pdf/timesheet_generator.rb"
 
 services:
   db:
